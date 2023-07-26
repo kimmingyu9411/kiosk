@@ -33,6 +33,7 @@ const Item = connector.sequelize.define(
     amount: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      defaultValue:0
     },
   },
   { timestamps: true }

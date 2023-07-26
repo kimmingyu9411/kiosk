@@ -16,7 +16,6 @@ class ItemRepository {
       name,
       price,
       type,
-      amount,
       userId:userId.id
     });
 
