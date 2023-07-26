@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const connector = require("./db/db.js");
 const config = require("./config.js");
 const router = require("./routes/index.js");
@@ -10,6 +11,7 @@ class App {
   }
   setup() {
     this.app.use(express.json());
+    this.app.use(cookieParser());
     this.app.use("/", router);
   }
   runServer() {

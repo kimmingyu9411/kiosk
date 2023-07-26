@@ -1,8 +1,8 @@
 const DataTypes = require("sequelize").DataTypes;
 const connector = require("../db.js");
 
-const Option = connector.sequelize.define(
-  "option",
+const User = connector.sequelize.define(
+  "user",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,20 +10,16 @@ const Option = connector.sequelize.define(
       allowNull: false,
       autoIncrement: true,
     },
-    extra_price: {
-      type: DataTypes.INTEGER,
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    shot_price: {
-      type: DataTypes.INTEGER,
+    email: {
+      type: DataTypes.STRING,
       allowNull: false,
-    },
-    hot: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
+      unique: true,
     },
   },
   { timestamps: true }
 );
-
-module.exports = Option;
+module.exports = User;

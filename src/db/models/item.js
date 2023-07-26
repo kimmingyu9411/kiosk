@@ -1,5 +1,10 @@
 const DataTypes = require("sequelize").DataTypes;
 const connector = require("../db.js");
+const itemType = {
+  COFFEE: "coffee",
+  JUICE: "juice",
+  FOOD: "food",
+};
 
 const Item = connector.sequelize.define(
   "item",
@@ -20,9 +25,10 @@ const Item = connector.sequelize.define(
       allowNull: false,
     },
     type: {
-      type: DataTypes.ENUM,
+      type: DataTypes.ENUM({
+        values:[ "coffee", "juice", "food" ]
+      }),
       allowNull: false,
-      values: ["COFFEE", "JUICE", "FOOD"],
     },
     amount: {
       type: DataTypes.INTEGER,

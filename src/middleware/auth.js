@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const User = require("../db/models/user");
 
 // 사용자 인증 미들웨어
 module.exports = async (req, res, next) => {
@@ -13,11 +14,14 @@ module.exports = async (req, res, next) => {
   }
 
   try {
-    const { userId } = jwt.verify(authToken, "custom-secret-key");
-    const user = await Users.findOne({ where: { userId } });
+    const { id } = jwt.verify(authToken, "custom-secret-key");
+    
+    const user = await User.findOne({ where: { id:id } });
     if (!user) {
       res.clearCookie("Authorization");
-      return res.status(401).json({ message: "토큰 사용자가 존재하지 않습니다." });
+      return res
+        .status(401)
+        .json({ message: "토큰 사용자가 존재하지 않습니다." });
     }
     res.locals.user = user;
     next();
