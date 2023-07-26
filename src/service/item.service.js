@@ -1,4 +1,4 @@
-const { indexOf } = require("../db/models/index.js");
+const bcrypt = require("bcrypt");
 const ItemRepository = require("../repository/item.repository.js");
 class ItemService {
   constructor() {
@@ -42,5 +42,47 @@ class ItemService {
 
     return await this.itemRepository.createItem(user, name, price, type);
   };
+
+  getAllItem = async () => {
+    return await this.itemRepository.getAllItem();
+  };
+
+  updateItem = async (itemId, user, name, price, type, password) => {
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return {
+        status: 400,
+        errorMessage: "비밀번호가 일치하지 않습니다.",
+      };
+    }
+    if (!name) {
+      return {
+        status: 400,
+        errorMessage: "상품명을 기입해야합니다.",
+      };
+    }
+    if (price <= 0) {
+      return {
+        status: 400,
+        errorMessage: "가격은 0보다 커야합니다.",
+      };
+    }
+
+    let updateValues = {};
+    if (name) updateValues.name = name;
+    if (price) updateValues.price = price;
+    if (type) updateValues.type = type;
+
+    return await this.itemRepository.updateItem(itemId, updateValues);
+  };
+
+  deleteItem = async (itemId, user, password) => {
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return { status: 400, errorMessage: "비밀번호가 일치하지 않습니다." };
+    }
+    return await this.itemRepository.deleteItem(itemId);
+  };
 }
+
 module.exports = ItemService;

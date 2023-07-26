@@ -5,6 +5,12 @@ const itemController = new ItemController();
 
 router
   .route("/")
-  .post(auth, itemController.createItem);
+  .post(auth, itemController.createItem)
+  .get(auth, itemController.getAllItem);
+
+router
+  .route("/:itemId")
+  .put(auth, itemController.updateItem)
+  .delete(auth, itemController.deleteItem)
 
 module.exports = router;
