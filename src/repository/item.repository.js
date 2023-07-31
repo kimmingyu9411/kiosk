@@ -76,6 +76,14 @@ class ItemRepository {
         };
       }
 
+      if (item.amount > 0) {
+        return {
+          status: 401,
+          errorMessage: "현재 수량이 남아있습니다. 삭제하시겠습니까?",
+          item,
+        };
+      }
+
       await item.destroy();
 
       return {
@@ -89,6 +97,24 @@ class ItemRepository {
         errorMessage: "상품 삭제 중 오류가 발생했습니다.",
       };
     }
+  }
+  async reDeleteItem(itemId) {
+    const item = await Item.findOne({
+      where: { id: itemId },
+    });
+    if (!item) {
+      return {
+        status: 400,
+        errorMessage: "해당 상품을 찾을 수 없습니다.",
+      };
+    }
+
+    await item.destroy();
+
+    return {
+      status: 200,
+      message: "상품 삭제가 완료되었습니다.",
+    };
   }
 }
 

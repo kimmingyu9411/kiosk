@@ -13,4 +13,8 @@ router
   .put(auth, itemController.updateItem)
   .delete(auth, itemController.deleteItem)
 
+router
+  .route("/:itemId/redelete")
+  .delete(auth, itemController.reDeleteItem)
+
 module.exports = router;

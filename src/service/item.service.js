@@ -83,6 +83,34 @@ class ItemService {
     }
     return await this.itemRepository.deleteItem(itemId);
   };
+
+  reDeleteItem = async (itemId, reitemId, confirm) => {
+    if (!confirm) {
+      return { status: 400, errorMessage: "yes를 입력받지 못했습니다." };
+    }
+    
+    if (confirm !== "yes") {
+      return { status: 400, errorMessage: "상품삭제를 취소하였습니다." };
+    }
+
+    if (!reitemId) {
+      return {
+        status: 402,
+        errorMessage:
+          "삭제간 오류가 발생했습니다, 처음부터 다시 삭제를 진행해야합니다.",
+      };
+    }
+
+    if (itemId !== reitemId) {
+      return {
+        status: 402,
+        errorMessage:
+          "삭제간 오류가 발생했습니다, 처음부터 다시 삭제를 진행해야합니다.",
+      };
+    }
+
+    return await this.itemRepository.reDeleteItem(itemId);
+  };
 }
 
 module.exports = ItemService;
