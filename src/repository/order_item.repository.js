@@ -1,5 +1,6 @@
 const Item = require("../db/models/item.js");
 const Order_item = require("../db/models/order_item.js");
+const sq = require('../db/db.js').sequelize;
 class Order_itemRepository {
   async createOrderItem(itemId, amount) {
     const existingItem = await Item.findOne({ where: { id: itemId } });
@@ -203,7 +204,7 @@ class Order_itemRepository {
         };
       }
     } catch (err) {
-      console.error(e);
+      console.error(err);
       await t.rollback();
       return { status: 400, errorMessage: "발주상태를 변경하는 도중 오류가 발생했습니다." };
     }

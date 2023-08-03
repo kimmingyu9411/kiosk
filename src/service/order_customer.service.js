@@ -1,18 +1,18 @@
-const Order_cutomerRepository = require("../repository/order_item.repository.js");
-class Order_cutomerService {
+const Order_customerRepository = require("../repository/order_customer.repository.js");
+const Item = require("../db/models/item.js");
+class Order_customerService {
   constructor() {
-    this.order_cutomerRepository = new Order_cutomerRepository();
+    this.order_customerRepository = new Order_customerRepository();
   }
 
-  createOrder = async (itemId) => {
-    if (!itemId) {
-      return {
-        status: 400,
-        errorMessage: "상품을 입력하지 않았습니다.",
-      };
-    }
+  createOrder = async () => {
 
-    return await this.order_cutomerRepository.createOrder(itemId);
+    return await this.order_customerRepository.createOrder();
   };
+
+  completeOrder = async (customerId,state) => {
+    
+    return await this.order_customerRepository.completeOrder(customerId,state);
+  }
 }
-module.exports = Order_cutomerService;
+module.exports = Order_customerService;

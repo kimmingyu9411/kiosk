@@ -13,6 +13,7 @@ const Order_customer = connector.sequelize.define(
     state: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue:false,
     },
   },
   { timestamps: true }
