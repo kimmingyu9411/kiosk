@@ -10,7 +10,7 @@ const User = require("./user.js");
 User.hasOne(Item);
 // Item
 Item.hasOne(Order_item);
-Item.belongsTo(Item_order_customer);
+Item.hasOne(Item_order_customer);
 Item.belongsTo(Option);
 Item.belongsTo(User);
 // Item_order_customer

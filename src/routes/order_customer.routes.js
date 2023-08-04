@@ -5,5 +5,10 @@ const order_customerController = new Order_customerController();
 router
   .route("/")
   .post(order_customerController.createOrder)
+
+  router
+  .route("/:customerId")
+  .put(order_customerController.completeOrder)
+
   
 module.exports = router;
